@@ -18,7 +18,7 @@ function holdEventHandler(){
     updateScore();
     current = 0;
     //if greater or equal to 100 return the winner state by activatin 
-    if(score[activePlayer] >= 20){
+    if(score[activePlayer] >= 100){
         //remove active class
         document.querySelector(`.player-${activePlayer}-panel`).classList.toggle('active');
         
@@ -66,6 +66,7 @@ function rollDice(){
         current += randNum;
         document.getElementById(`current-${activePlayer}`).textContent = current;
     }else{
+        current = 0;
         toggleActiveClass();
     }
 }
