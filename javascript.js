@@ -19,15 +19,18 @@ function holdEventHandler(){
     current = 0;
     //if greater or equal to 100 return the winner state by activatin 
     if(score[activePlayer] >= 20){
-        console.log(activePlayer +"wins");
         //remove active class
         document.querySelector(`.player-${activePlayer}-panel`).classList.toggle('active');
+        
         //change player name to 'Winner!'
         document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!';
+        
         //add winner class
         document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
+        
         //hide dice
         document.querySelector(".dice").style.display ="none";
+        
         //remove handlers
         removeHandler();
         
@@ -36,15 +39,16 @@ function holdEventHandler(){
     }
     //set current to zero    
     currentToZero();
-    
 }
 
 function updateScore(){
     //update score array with respective player
-        score[activePlayer] += current;
-     //update the score of the current player
-        document.getElementById(`score-${activePlayer}`).textContent = score[activePlayer];
+    score[activePlayer] += current;
+
+    //update the score of the current player
+    document.getElementById(`score-${activePlayer}`).textContent = score[activePlayer];
 }
+
 function rollDice(){
     //generate a random number
     let randNum = Math.floor((Math.random()*6)+1);
@@ -66,29 +70,34 @@ function rollDice(){
     }
 }
 
-function init(){//start new game from here
+function init(){
     //hide the dice
     document.querySelector(".dice").style.display ="none";
+
     //set current to zero
     currentToZero();
+
     //set scores of both players to zero
-     document.getElementById("score-0").textContent = '0'; 
-     document.getElementById("score-1").textContent = '0';
+    document.getElementById("score-0").textContent = '0'; 
+    document.getElementById("score-1").textContent = '0';
 }
+
 function currentToZero(){
     //set current to zero
     document.getElementById("current-0").textContent = '0';
-     document.getElementById("current-1").textContent = '0';
+    document.getElementById("current-1").textContent = '0';
 }
+
 function toggleActiveClass(){
     //change the active state
-        activePlayer == 0 ?activePlayer = 1 : activePlayer = 0;
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
+    activePlayer == 0 ?activePlayer = 1 : activePlayer = 0;
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
 }
+
 function removeHandler(){
     //remove event handler from roll dice
-        document.querySelector(".btn-roll").removeEventListener("click",rollDice);
-        // remove event handler from hold btn
-        document.querySelector(".btn-hold").removeEventListener("click",holdEventHandler);
+    document.querySelector(".btn-roll").removeEventListener("click",rollDice);
+    // remove event handler from hold btn
+    document.querySelector(".btn-hold").removeEventListener("click",holdEventHandler);
 }
