@@ -36,15 +36,20 @@ function updateScore(){
      //also check value of score
     
     //if greater or equal to 100 return the winner state by activatin 
-    if(score[activePlayer] >=20){
+    if(score[activePlayer] >= 100){
         console.log(activePlayer +"wins");
         document.querySelector('.player-0-panel').classList.add('winner');
         //do the winnings
         document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!';
         //hide dice
         document.querySelector(".dice").style.display ="none";
+        //remove event handler from roll dice
+        document.querySelector(".btn-roll").removeEventListener("click",rollDice);
+        // remove event handler from hold btn
+        document.querySelector(".btn-hold").removeEventListener("click",holdEventHandler);
+
     }
-    //winner class and also calling the init function
+    
     
 }
 function rollDice(){
@@ -68,12 +73,13 @@ function rollDice(){
 
 }
 
-function init(){
+function init(){//start new game from here
     //hide the dice
     document.querySelector(".dice").style.display ="none";
     //get current to zero
      document.getElementById("current-0").textContent = '0';
      document.getElementById("current-1").textContent = '0';
+    //set scores of both players to zero
      document.getElementById("score-0").textContent = '0'; 
      document.getElementById("score-1").textContent = '0';
     //set current and scores to zero
