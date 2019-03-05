@@ -17,7 +17,25 @@ function holdEventHandler(){
     //if hold is pressed change the active state and add current to score
     updateScore();
     current = 0;
-    toggleActiveClass();
+        if(score[activePlayer] >= 20){
+            console.log(activePlayer +"wins");
+            document.querySelector(`.player-${activePlayer}-panel`).classList.toggle('active');
+
+            //change player name to 'Winner!'
+            document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!';
+            //add winner class
+            document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
+            //hide dice
+            document.querySelector(".dice").style.display ="none";
+            //remove event handler from roll dice
+            document.querySelector(".btn-roll").removeEventListener("click",rollDice);
+            // remove event handler from hold btn
+            document.querySelector(".btn-hold").removeEventListener("click",holdEventHandler);
+            //remove acrive class
+
+        }else{
+            toggleActiveClass();
+        }
 //        document.getElementById(`current-${activePlayer}`).textContent = '0';
 
      document.getElementById("current-0").textContent = '0';
@@ -36,19 +54,7 @@ function updateScore(){
      //also check value of score
     
     //if greater or equal to 100 return the winner state by activatin 
-    if(score[activePlayer] >= 100){
-        console.log(activePlayer +"wins");
-        document.querySelector('.player-0-panel').classList.add('winner');
-        //do the winnings
-        document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!';
-        //hide dice
-        document.querySelector(".dice").style.display ="none";
-        //remove event handler from roll dice
-        document.querySelector(".btn-roll").removeEventListener("click",rollDice);
-        // remove event handler from hold btn
-        document.querySelector(".btn-hold").removeEventListener("click",holdEventHandler);
 
-    }
     
     
 }
@@ -65,8 +71,8 @@ function rollDice(){
         current += randNum;
         document.getElementById(`current-${activePlayer}`).textContent = current;
     }else{
-        updateScore();
         current = 0;
+        updateScore();
         toggleActiveClass();
     }
     
