@@ -2,7 +2,7 @@ let score = [0,0];  //score[0] is player1 and score[1] is player 2
 let activePlayer = 0;   // can be 0 or 1
 let current = 0;
 let prevDice = 0;
-
+let winScore = 0;
 //method to start the game
 init();
 //handler for roll btn
@@ -14,12 +14,18 @@ document.querySelector(".btn-new").addEventListener("click",function(){
 //hold btn handler
 document.querySelector(".btn-hold").addEventListener("click",holdEventHandler);
 
+document.getElementById('winScore').addEventListener('change',function (){
+//   console.log('focsr');
+    winScore = document.getElementById('winScore').value;
+    console.log(winScore);
+});
+
 function holdEventHandler(){
     //if hold is pressed change the active state and add current to score
     updateScore();
     current = 0;
     //if greater or equal to 100 return the winner state by activatin 
-    if(score[activePlayer] >= 100){
+    if(score[activePlayer] >= winScore){
         //remove active class
         document.querySelector(`.player-${activePlayer}-panel`).classList.toggle('active');
         
