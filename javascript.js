@@ -1,6 +1,7 @@
 let score = [0,0];  //score[0] is player1 and score[1] is player 2
 let activePlayer = 0;   // can be 0 or 1
 let current = 0;
+let prevDice = 0;
 
 //method to start the game
 init();
@@ -53,21 +54,30 @@ function rollDice(){
     //generate a random number
     let randNum = Math.floor((Math.random()*6)+1);
     
-    //change the value of current of the active player to zero
-    document.getElementById(`current-${activePlayer}`).textContent = '0';
-    
-    //change the dice image plus display(unhide) it
-    let diceDom = document.querySelector(".dice");
-    diceDom.style.display = "block";
-    diceDom.src=`dice-${randNum}.png`
-    
-    //if dice number is other than 1 add it to current score
-    if(randNum !== 1){
-        current += randNum;
-        document.getElementById(`current-${activePlayer}`).textContent = current;
-    }else{
-        current = 0;
+    //challenge 1 check for dbl sixes
+    if(randNum === 6 && prevDice === 6){
+        score[activePlayer] = 0;
+        document.getElementById(`score-${activePlayer}`).textContent = score[activePlayer];
         toggleActiveClass();
+//        prevDice = 0;
+    }else{
+        //change the value of current of the active player to zero
+        document.getElementById(`current-${activePlayer}`).textContent = '0';
+
+        //change the dice image plus display(unhide) it
+        let diceDom = document.querySelector(".dice");
+        diceDom.style.display = "block";
+        diceDom.src=`dice-${randNum}.png`
+
+        //if dice number is other than 1 add it to current score
+        if(randNum !== 1){
+            current += randNum;
+            document.getElementById(`current-${activePlayer}`).textContent = current;
+        }else{
+            current = 0;
+            toggleActiveClass();
+        }
+        prevDice = randNum;
     }
 }
 
