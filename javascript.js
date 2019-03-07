@@ -17,7 +17,7 @@ document.querySelector(".btn-hold").addEventListener("click",holdEventHandler);
 document.getElementById('winScore').addEventListener('change',function (){
 //   console.log('focsr');
     winScore = document.getElementById('winScore').value;
-    console.log(winScore);
+//    console.log(winScore);
 });
 
 function holdEventHandler(){
@@ -37,7 +37,8 @@ function holdEventHandler(){
         
         //hide dice
         document.querySelector(".dice").style.display ="none";
-        
+        document.querySelector(".dice2").style.display ="none";
+
         //remove handlers
         removeHandler();
         
@@ -57,27 +58,33 @@ function updateScore(){
 }
 
 function rollDice(){
-    //generate a random number
+    //generate a random number for first dice
     let randNum = Math.floor((Math.random()*6)+1);
+    //generate a random number for second dice
+    let randNum2 = Math.floor((Math.random()*6)+1);
     
+    //change the dice image plus display(unhide) it
+    let diceDom = document.querySelector(".dice");
+    diceDom.style.display = "block";
+    diceDom.src=`dice-${randNum}.png`;
+    
+    //change the dice image plus display(unhide) it
+    let diceDom2 = document.querySelector(".dice2");
+    diceDom2.style.display = "block";
+    diceDom2.src=`dice-${randNum2}.png`;
+
     //challenge 1 check for dbl sixes
     if(randNum === 6 && prevDice === 6){
         score[activePlayer] = 0;
         document.getElementById(`score-${activePlayer}`).textContent = score[activePlayer];
         toggleActiveClass();
-//        prevDice = 0;
     }else{
         //change the value of current of the active player to zero
         document.getElementById(`current-${activePlayer}`).textContent = '0';
-
-        //change the dice image plus display(unhide) it
-        let diceDom = document.querySelector(".dice");
-        diceDom.style.display = "block";
-        diceDom.src=`dice-${randNum}.png`
-
+        
         //if dice number is other than 1 add it to current score
-        if(randNum !== 1){
-            current += randNum;
+        if(randNum !== 1 && randNum2 !== 1){
+            current += randNum + randNum2;
             document.getElementById(`current-${activePlayer}`).textContent = current;
         }else{
             current = 0;
@@ -90,6 +97,7 @@ function rollDice(){
 function init(){
     //hide the dice
     document.querySelector(".dice").style.display ="none";
+    document.querySelector(".dice2").style.display ="none";
 
     //set current to zero
     currentToZero();
