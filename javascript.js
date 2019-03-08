@@ -2,7 +2,7 @@ let score = [0,0];  //score[0] is player1 and score[1] is player 2
 let activePlayer = 0;   // can be 0 or 1
 let current = 0;
 let prevDice = 0;
-let winScore = 0;
+let winScore = 100;
 //method to start the game
 init();
 //handler for roll btn
